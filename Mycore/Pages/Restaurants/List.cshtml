@@ -6,17 +6,18 @@
 
 <h1>Restaurants</h1>
 
-<form  method="get">
+<form method="get">
     <div class="form-group">
         <div class="input-group">
-            <input type="search" class="form-control" 
-                   asp-for="SearchTerm"/>
+            <input type="search" class="form-control"
+                   asp-for="SearchTerm" />
             <span class="input-group-btn">
-                <button class="btn btn-default" >
+                <button class="btn btn-default">
                     <i class="glyphicon glyphicon-search"></i>
                 </button>
 
             </span>
+           
         </div>
     </div>
 
@@ -30,11 +31,16 @@
             <td>@restaurant.Location</td>
             <td>@restaurant.Cuisine</td>
             <td>
-                <a class="btn btn-lg" 
+                <a class="btn btn-lg"
                    asp-page="./Detail" asp-route-restaurantId="@restaurant.Id">
-                    <i class="glyphicon glyphicon-zoom-in" ></i>
+                    <i class="glyphicon glyphicon-zoom-in"></i>
                 </a>
-            </td>
+            </td><td>
+    <a class="btn btn-lg"
+       asp-page="./Edit" asp-route-restaurantId="@restaurant.Id">
+        <i class="glyphicon glyphicon-edit"></i>
+    </a>
+</td>
         </tr>
 
     }
@@ -43,4 +49,3 @@
 
 <div> @Model.Message </div>
 
-  

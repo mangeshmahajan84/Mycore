@@ -4,30 +4,35 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using OdeToFood.Core;
 using OdeToFood.Data;
 
 namespace Mycore.Pages.Restaurants
 {
-    public class DetailModel : PageModel
+    public class EditModel : PageModel
     {
         private readonly IRestaurantData restaurantData;
+        private readonly HtmlHelper htmlHelper;
 
         public Restaurant Restaurant { get; set; }
-        public DetailModel(IRestaurantData restaurantData )
+
+        public IEnumerable<SelectListItem> Cuisines { get; set; }
+        public EditModel(IRestaurantData restaurantData,Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper htmlHelper)
         {
             this.restaurantData = restaurantData;
+            this.htmlHelper = htmlHelper;
         }
         public IActionResult OnGet(int restaurantId)
         {
+            Cuisines = htmlHelper.GetEnumSelectList<CuisineType>();
             Restaurant = restaurantData.GetById(restaurantId);
-            if(Restaurant==null)
+            if (Restaurant == null)
             {
                 return RedirectToPage("./NotFound");
             }
             return Page();
-           // Restaurant.Id = restaurantId;
-
         }
     }
 }
