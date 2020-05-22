@@ -14,12 +14,12 @@ namespace Mycore.Pages.Restaurants
     public class EditModel : PageModel
     {
         private readonly IRestaurantData restaurantData;
-        private readonly HtmlHelper htmlHelper;
+        private readonly IHtmlHelper htmlHelper;
 
         public Restaurant Restaurant { get; set; }
 
         public IEnumerable<SelectListItem> Cuisines { get; set; }
-        public EditModel(IRestaurantData restaurantData,Microsoft.AspNetCore.Mvc.ViewFeatures.HtmlHelper htmlHelper)
+        public EditModel(IRestaurantData restaurantData,IHtmlHelper htmlHelper)
         {
             this.restaurantData = restaurantData;
             this.htmlHelper = htmlHelper;

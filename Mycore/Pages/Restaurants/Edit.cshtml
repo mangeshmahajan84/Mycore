@@ -4,7 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h2>Editing @Model.Restaurant</h2>
+<h2>Editing @Model.Restaurant.Name</h2>
 
 <form method="post">
 
@@ -19,10 +19,10 @@
     </div>
     <div class="form-group">
         <label asp-for="Restaurant.Cuisine"></label>
-        @*<select class="form-group" asp-for="Restaurant.Cuisine"
+        <select class="form-group" asp-for="Restaurant.Cuisine"
                                    asp-items="Model.Cuisines" >
 
-        </select>*@
+        </select>
     </div>
 
 
