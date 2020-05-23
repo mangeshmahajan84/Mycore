@@ -24,10 +24,18 @@ namespace Mycore.Pages.Restaurants
             this.restaurantData = restaurantData;
             this.htmlHelper = htmlHelper;
         }
-        public IActionResult OnGet(int restaurantId)
+        public IActionResult OnGet(int? restaurantId)
         {
             Cuisines = htmlHelper.GetEnumSelectList<CuisineType>();
-            Restaurant = restaurantData.GetById(restaurantId);
+            if (restaurantId.HasValue)
+            {
+                Restaurant = restaurantData.GetById(restaurantId.Value);
+            }
+            else
+            {
+                Restaurant = new Restaurant();
+                
+            }
             if (Restaurant == null)
             {
                 return RedirectToPage("./NotFound");
@@ -37,16 +45,28 @@ namespace Mycore.Pages.Restaurants
 
         public IActionResult OnPost()
         {
-            if(ModelState.IsValid)
+            if(!ModelState.IsValid)
+            {
+
+                Cuisines = htmlHelper.GetEnumSelectList<CuisineType>();
+
+                return Page();                
+            }
+            if (Restaurant.Id > 0)
             {
                 Restaurant = restaurantData.Updated(Restaurant);
-                restaurantData.Commit();
+            }
+            else
+            {
 
+                restaurantData.Add(Restaurant);
             }
 
-            Cuisines = htmlHelper.GetEnumSelectList<CuisineType>();
-          
-            return Page();
+            restaurantData.Commit();
+            TempData["Message"] = "Restaurants saved!";
+            return RedirectToPage("./Detail", new { restaurantId = Restaurant.Id });
+
+
         }
     }
 }

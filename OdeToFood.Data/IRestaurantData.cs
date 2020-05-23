@@ -11,6 +11,8 @@ namespace OdeToFood.Data
         Restaurant GetById(int Id);
 
         Restaurant Updated(Restaurant restaurant);
+        Restaurant Add(Restaurant NewRestaurant);
+
         int Commit();
     }
 
@@ -25,6 +27,13 @@ namespace OdeToFood.Data
                 new Restaurant {Id=2,Name="Mrunali Restaurant",Location="Jalgaon",Cuisine=CuisineType.Italian },
                 new Restaurant {Id=3,Name="Mrugesh Restaurant",Location="Yuganda",Cuisine=CuisineType.Mexican }
             };
+        }
+
+        public Restaurant Add(Restaurant NewRestaurant)
+        {
+            restaurants.Add(NewRestaurant);
+            NewRestaurant.Id = restaurants.Max(r => r.Id) + 1;
+            return NewRestaurant;
         }
 
         public int Commit()
